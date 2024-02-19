@@ -1,27 +1,37 @@
-import React from 'react';
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import React from "react";
 
 type EventTypeSelectProps = {
-    eventTypes: string[];
-    filterType: string;
-    onFilterTypeChange: (event: SelectChangeEvent<string>) => void;
+  eventTypes: string[];
+  filterType: string;
+  onFilterTypeChange: (value: string) => void; // Accept a string directly
 };
 
-const EventTypeSelect: React.FC<EventTypeSelectProps> = ({ eventTypes, filterType, onFilterTypeChange }) => {
+const EventTypeSelect: React.FC<EventTypeSelectProps> = ({
+  eventTypes,
+  filterType,
+  onFilterTypeChange,
+}) => {
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const newValue = event.target.value || '';
+    onFilterTypeChange(newValue); // Pass the new value directly
+  };
+
   return (
     <Select
-      sx={{margin: 2, marginRight: 3, width: '50%'}}
       value={filterType}
-      onChange={onFilterTypeChange}
+      onChange={handleChange}
+      sx={{ margin: 2, marginRight: 3, width: '50%' }}
       displayEmpty
       inputProps={{ 'aria-label': 'Select Event Type' }}
     >
-      <MenuItem value="" disabled>
-        Filter by Event Type
+      <MenuItem value="">
+        <em>None</em>
       </MenuItem>
-      <MenuItem value="">Cancel Select</MenuItem> {/* Add the cancel option */}
-      {eventTypes.map((type, index) => (
-        <MenuItem key={index} value={type}>{type}</MenuItem>
+      {eventTypes.map((type) => (
+        <MenuItem key={type} value={type}>
+          {type}
+        </MenuItem>
       ))}
     </Select>
   );

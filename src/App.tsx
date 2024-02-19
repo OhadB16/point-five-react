@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Grid, CircularProgress, SelectChangeEvent } from "@mui/material";
+import { Box, Typography, Grid, CircularProgress } from "@mui/material";
 import { EventItem } from './models/EventItem';
 import EventItemBox from './components/events/EventItemBox';
 import useFetchEvents from './hooks/useFetchEvents';
@@ -55,11 +55,10 @@ function App() {
     }
   };
 
-  const handleFilterTypeChange = (event: SelectChangeEvent<string>) => {
-    if (event && event.target) {
-      setFilterType(event.target.value);
-    }
+  const handleFilterTypeChange = (value: string) => {
+    setFilterType(value); 
   };
+  
 
   const handleEventItemClick = (eventItem: EventItem) => {
     setSelectedEvent(eventItem);
