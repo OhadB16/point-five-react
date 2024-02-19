@@ -22,13 +22,12 @@ const EventSearch: React.FC<EventSearchProps> = ({
     <Autocomplete
       options={events}
       sx={{ margin: 2, marginRight: 3, width: '50%' }}
-      getOptionLabel={(option) => `${option.actor.login} / ${option.repo.name}  (${option.id})`}
+      getOptionLabel={(option) => `${option.actor.login} / ${option.repo.name} (${option.id})`}
       inputValue={searchTerm}
       onInputChange={(event, value, reason) => {
         if (reason === 'input') onSearchTermChange(event, value);
       }}
       onChange={(event, value: EventItem | null) => {
-        console.log('EventSearch onChange:', value);
         setSelectedEvent(value); // Set the selected event
         if (value) {
           setFilteredEvents([value]); // Filter events to show only the selected one
@@ -36,6 +35,8 @@ const EventSearch: React.FC<EventSearchProps> = ({
           setFilteredEvents(events); // No selection, show all events
         }
       }}
+      // Define how to determine if an option is equal to the value
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -50,5 +51,6 @@ const EventSearch: React.FC<EventSearchProps> = ({
     />
   );
 };
+
 
 export default React.memo(EventSearch);

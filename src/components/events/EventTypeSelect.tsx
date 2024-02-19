@@ -4,7 +4,7 @@ import React from "react";
 type EventTypeSelectProps = {
   eventTypes: string[];
   filterType: string;
-  onFilterTypeChange: (value: string) => void; // Accept a string directly
+  onFilterTypeChange: (event: SelectChangeEvent<string>) => void;
 };
 
 const EventTypeSelect: React.FC<EventTypeSelectProps> = ({
@@ -12,22 +12,19 @@ const EventTypeSelect: React.FC<EventTypeSelectProps> = ({
   filterType,
   onFilterTypeChange,
 }) => {
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    const newValue = event.target.value || '';
-    onFilterTypeChange(newValue); // Pass the new value directly
-  };
-
   return (
     <Select
       value={filterType}
-      onChange={handleChange}
+      onChange={onFilterTypeChange}
       sx={{ margin: 2, marginRight: 3, width: '50%' }}
       displayEmpty
       inputProps={{ 'aria-label': 'Select Event Type' }}
     >
+      {/* Default option */}
       <MenuItem value="">
         <em>None</em>
       </MenuItem>
+      {/* List of event types */}
       {eventTypes.map((type) => (
         <MenuItem key={type} value={type}>
           {type}
