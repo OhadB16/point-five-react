@@ -22,12 +22,13 @@ const EventSearch: React.FC<EventSearchProps> = ({
     <Autocomplete
       options={events}
       sx={{ margin: 2, marginRight: 3, width: '50%' }}
-      getOptionLabel={(option) => `${option.actor.login} / ${option.repo.name}`}
+      getOptionLabel={(option) => `${option.actor.login} / ${option.repo.name}  (${option.id})`}
       inputValue={searchTerm}
       onInputChange={(event, value, reason) => {
         if (reason === 'input') onSearchTermChange(event, value);
       }}
       onChange={(event, value: EventItem | null) => {
+        console.log('EventSearch onChange:', value);
         setSelectedEvent(value); // Set the selected event
         if (value) {
           setFilteredEvents([value]); // Filter events to show only the selected one

@@ -30,7 +30,7 @@ function App() {
   
     const uniqueEventsMap = new Map();
     events.forEach(event => {
-      const combinedLabel = `${event.actor.login} / ${event.repo.name}`.toLowerCase();
+      const combinedLabel = `${event.actor.login} / ${event.repo.name} (${event.id})`.toLowerCase();
       if (combinedLabel.includes(searchTerm.toLowerCase()) &&
           (!filterType || event.type.toLowerCase() === filterType.toLowerCase())) {
         // Use event.id or a composite key as the unique identifier
